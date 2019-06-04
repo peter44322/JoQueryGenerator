@@ -1,0 +1,17 @@
+<?php
+
+namespace Peterzaccha\JoQueryGenerator\Facades;
+
+
+use Illuminate\Support\Facades\Facade;
+
+class JoQueryGeneratorFacade extends Facade
+{
+    /**
+     * @return string
+     */
+    protected static function getFacadeAccessor()
+    {
+        return 'joquerygenerator';
+    }
+}
