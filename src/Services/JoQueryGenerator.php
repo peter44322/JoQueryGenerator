@@ -1,6 +1,8 @@
 <?php
 
 namespace Peterzaccha\JoQueryGenerator\Services;
+use Peterzaccha\JoQueryGenerator\Interfaces\DataTable;
+
 class JoQueryGenerator
 {
     private $joins = [];
@@ -9,10 +11,13 @@ class JoQueryGenerator
     private $defaultSelectors = [];
     private $tableDotColumn;
 
-    public function __construct($tableDotColumn,$defaultSelectors=[])
+    public function __construct($tableDotColumn,DataTable $dataTable)
     {
         $this->tableDotColumn = $tableDotColumn;
-        $this->defaultSelectors = $defaultSelectors;
+        $this->defaultSelectors = $dataTable->defaultSelection();
+        $this->joins = $dataTable->joins();
+        $this->selectors = $dataTable->selections();
+
         $this->setTables();
     }
 
