@@ -23,6 +23,6 @@ class DataTable
 //    }
 
     public static function url(){
-        return url('jo-query-generator-route/'.static::class);
+        return url('jo-query-generator-route/'.end(explode('\\',static::class)));
     }
 }
