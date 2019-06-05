@@ -3,6 +3,7 @@
 namespace Peterzaccha\JoQueryGenerator;
 
 use Illuminate\Support\ServiceProvider;
+use Peterzaccha\JoQueryGenerator\Controllers\Router;
 use Peterzaccha\JoQueryGenerator\Services\JoQueryGenerator;
 
 class JoQueryGeneratorServiceProvider extends ServiceProvider
@@ -21,19 +22,18 @@ class JoQueryGeneratorServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        $this->loadRoutesFrom(__DIR__.'/routes.php');
         $this->loadMigrationsFrom(__DIR__ . '/../database/migrations/');
     }
 
 
-    /**
-     * Register the service provider.
-     *
-     * @return void
-     */
+
     public function register()
     {
         $this->app->bind('joquerygenerator', function () {
             return new JoQueryGenerator();
         });
+        $this->app->make('Peterzaccha\JoQueryGenerator\Controllers\Router');
+
     }
 }

@@ -4,9 +4,25 @@
 namespace Peterzaccha\JoQueryGenerator\Interfaces;
 
 
-interface DataTable
+class DataTable
 {
-    public function joins();
-    public function selections();
-    public function defaultSelection();
+    public function joins(){
+     return [];
+    }
+    public function selections(){
+        return [];
+    }
+    public function defaultSelection(){
+        return [];
+    }
+    public function query(){
+        return null;
+    }
+    public function slug(){
+        return __CLASS__;
+    }
+
+    public function url(){
+        return url('jo-query-generator-route/'.$this->slug());
+    }
 }

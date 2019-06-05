@@ -10,6 +10,7 @@ class JoQueryGenerator
     private $selectors = [];
     private $tables = [];
     private $defaultSelectors = [];
+    private $query ;
     private $tableDotColumn;
 
     public function __construct(Request $request,DataTable $dataTable)
@@ -18,6 +19,7 @@ class JoQueryGenerator
         $this->defaultSelectors = $dataTable->defaultSelection();
         $this->joins = $dataTable->joins();
         $this->selectors = $dataTable->selections();
+        $this->query = $dataTable->query();
 
         $this->setTables();
     }
@@ -106,17 +108,17 @@ class JoQueryGenerator
         return array_unique($allSelectors);
     }
 
-    public function render($query)
+    public function render()
     {
         foreach ($this->getJoins() as $object) {
-            $query->leftJoin($object->table, function ($q) use ($object) {
+            $this->query->leftJoin($object->table, function ($q) use ($object) {
                 for ($i = 0; $i < count($object->first_col); $i++) {
                     $fun = 'on';//$i === 0 ? 'on' : 'orOn';
                     $q->$fun($object->first_col[$i], $object->operator, $object->second_col[$i]);
                 }
             });
         }
-        return $query->select($this->getSelectors());
+        return $this->query->select($this->getSelectors());
     }
 
 }
