@@ -18,11 +18,11 @@ class DataTable
     public function query(){
         return null;
     }
-    public function slug(){
-        return __CLASS__;
-    }
+//    public function slug(){
+//        return __CLASS__;
+//    }
 
     public function url(){
-        return url('jo-query-generator-route/'.$this->slug());
+        return url('jo-query-generator-route/'.static::class);
     }
 }
