@@ -13,16 +13,16 @@ class JoQueryGenerator
     private $query ;
     private $tableDotColumn;
 
-    public function __construct(Request $request,DataTable $dataTable)
+    public function __construct(Request $request, $dataTable)
     {
         $this->tableDotColumn = $request->viscolumns;
         if(!$request->viscolumns){
             throw new \InvalidArgumentException('viscolumns Could not be null');
         }
-        $this->defaultSelectors = $dataTable->defaultSelection();
-        $this->joins = $dataTable->joins();
-        $this->selectors = $dataTable->selections();
-        $this->query = $dataTable->query();
+        $this->defaultSelectors = $dataTable::defaultSelection();
+        $this->joins = $dataTable::joins();
+        $this->selectors = $dataTable::selections();
+        $this->query = $dataTable::query();
 
         $this->setTables();
     }
