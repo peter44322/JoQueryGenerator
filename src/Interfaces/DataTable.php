@@ -22,7 +22,7 @@ class DataTable
 //        return __CLASS__;
 //    }
 
-    public function url(){
+    public static function url(){
         return url('jo-query-generator-route/'.static::class);
     }
 }
