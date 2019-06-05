@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 namespace Peterzaccha\JoQueryGenerator\Controllers;
-use App\Datatables\pp;
+use App\DataTables\pp;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use mysql_xdevapi\Exception;
@@ -27,6 +27,6 @@ class Router extends Controller
             $qg = new JoQueryGenerator($request,$obj);
             return  Datatables::of($qg->render())->make();
         }
-      //  throw new NotFoundHttpException();
+       throw new NotFoundHttpException();
     }
 }

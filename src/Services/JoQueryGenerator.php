@@ -16,6 +16,9 @@ class JoQueryGenerator
     public function __construct(Request $request,DataTable $dataTable)
     {
         $this->tableDotColumn = $request->viscolumns;
+        if(!$request->viscolumns){
+            throw new \InvalidArgumentException('viscolumns Could not be null');
+        }
         $this->defaultSelectors = $dataTable->defaultSelection();
         $this->joins = $dataTable->joins();
         $this->selectors = $dataTable->selections();
