@@ -19,7 +19,7 @@ class Router extends Controller
 
     public function call(Request $request, $slug){
 
-        $class = 'App\Datatables\\'.$slug;
+        $class = 'App\DataTables\\'.$slug;
 
         if (class_exists($class))
         {
