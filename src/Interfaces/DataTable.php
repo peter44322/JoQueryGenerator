@@ -43,7 +43,7 @@ class DataTable
                 $name = trim($name);
                 $data = trim($data);
                 $title = isset($titles[$data]) ? $titles[$data] : $data;
-                $html .= "<th data-data='${data}' data-name='${$name}' data-visible='0' class='${$classes}'>${title}</th>";
+                $html .= "<th data-data='${data}' data-name='${name}' data-visible='0' class='${classes}'>${title}</th>";
             }
         }
         foreach (static::defaultSelection() as $selection){
@@ -53,7 +53,7 @@ class DataTable
                 foreach (Schema::getColumnListing($table) as $column){
                     $name = $table.'.'.$column;
                     $title = isset($titles[$column]) ? $titles[$column] : $column;
-                    $html .= "<th data-data='${$column}' data-name='${$name}' data-visible='0' class='${$classes}'>${title}</th>";
+                    $html .= "<th data-data='${column}' data-name='${name}' data-visible='0' class='${classes}'>${title}</th>";
                 }
             }
 
