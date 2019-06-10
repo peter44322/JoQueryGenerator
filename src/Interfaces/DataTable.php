@@ -63,7 +63,7 @@ class DataTable
         }
         foreach (static::customColumns() as $key=>$value){
             $title = isset($titles[$key]) ? $titles[$key] : $key;
-            $html .= "<th data-data='${$key}' data-name='${$key}' data-visible='0' class='${classes}'>${$title}</th>";
+            $html .= "<th data-data='${key}' data-name='${key}' data-visible='0' class='${classes}'>${title}</th>";
         }
 
         return $html;
