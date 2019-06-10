@@ -25,7 +25,7 @@ class Router extends Controller
         {
             $obj = new $class;
             $qg = new JoQueryGenerator($request,$obj);
-            return  Datatables::of($qg->render())->make();
+            return $obj->render($qg)->make();
         }
        throw new NotFoundHttpException();
     }

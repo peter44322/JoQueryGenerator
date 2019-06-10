@@ -5,6 +5,8 @@ namespace Peterzaccha\JoQueryGenerator\Interfaces;
 
 
 use Illuminate\Support\Facades\Schema;
+use Peterzaccha\JoQueryGenerator\Services\JoQueryGenerator;
+use Yajra\DataTables\DataTables;
 
 class DataTable
 {
@@ -59,5 +61,9 @@ class DataTable
 
         }
         return $html;
+    }
+
+    public function render(JoQueryGenerator $queryGenerator){
+        Datatables::of($queryGenerator->render());
     }
 }
