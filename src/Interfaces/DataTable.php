@@ -61,11 +61,27 @@ class DataTable
                 $html .= "<th data-data='${data}' data-name='${name}' data-visible='0' class='${classes}'>${title}</th>";
             }
         }
+        foreach (static::customColumns() as $key=>$value){
+            $title = isset($titles[$key]) ? $titles[$key] : $key;
+            $html .= "<th data-data='${$key}' data-name='${$key}' data-visible='0' class='${classes}'>${$title}</th>";
+        }
 
         return $html;
     }
 
     public function render(JoQueryGenerator $queryGenerator){
-        return Datatables::of($queryGenerator->render());
+        $dataTable = Datatables::of($queryGenerator->render());
+        foreach (static::customColumns() as $name=>$function){
+            $dataTable->addColumn($name,$function);
+        }
+        return $dataTable->rawColumns($this->rawColumns());
+    }
+
+    public static function customColumns(){
+        return [];
+    }
+
+    public function rawColumns(){
+        return [];
     }
 }
