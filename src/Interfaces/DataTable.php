@@ -38,16 +38,6 @@ class DataTable
     public static function tableTitle($classes =""){
         $html = '';
         $titles = static::titles();
-        foreach (static::selections() as $key=>$value){
-            foreach ($value as $selection){
-                $name = explode(' as ',$selection)[0];
-                $data = explode(' as ',$selection)[1];
-                $name = trim($name);
-                $data = trim($data);
-                $title = isset($titles[$data]) ? $titles[$data] : $data;
-                $html .= "<th data-data='${data}' data-name='${name}' data-visible='0' class='${classes}'>${title}</th>";
-            }
-        }
         foreach (static::defaultSelection() as $selection){
             $table=explode('.',$selection)[0];
             $star=explode('.',$selection)[1];
@@ -60,6 +50,18 @@ class DataTable
             }
 
         }
+
+        foreach (static::selections() as $key=>$value){
+            foreach ($value as $selection){
+                $name = explode(' as ',$selection)[0];
+                $data = explode(' as ',$selection)[1];
+                $name = trim($name);
+                $data = trim($data);
+                $title = isset($titles[$data]) ? $titles[$data] : $data;
+                $html .= "<th data-data='${data}' data-name='${name}' data-visible='0' class='${classes}'>${title}</th>";
+            }
+        }
+
         return $html;
     }
 
