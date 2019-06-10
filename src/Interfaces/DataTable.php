@@ -64,6 +64,6 @@ class DataTable
     }
 
     public function render(JoQueryGenerator $queryGenerator){
-        Datatables::of($queryGenerator->render());
+        return Datatables::of($queryGenerator->render());
     }
 }
