@@ -2,31 +2,26 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 namespace Peterzaccha\JoQueryGenerator\Controllers;
-use App\DataTables\pp;
+
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use mysql_xdevapi\Exception;
 use Peterzaccha\JoQueryGenerator\Services\JoQueryGenerator;
-use phpDocumentor\Reflection\DocBlock\Tags\Throws;
-use ReflectionClass;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Yajra\DataTables\DataTables;
 
 class Router extends Controller
 {
-
-    public function call(Request $request, $slug){
-
+    public function call(Request $request, $slug)
+    {
         $class = 'App\DataTables\\'.$slug;
 
-        if (class_exists($class))
-        {
-            $obj = new $class;
-            $qg = new JoQueryGenerator($request,$obj);
+        if (class_exists($class)) {
+            $obj = new $class();
+            $qg = new JoQueryGenerator($request, $obj);
+
             return $obj->render($qg)->make();
         }
-       throw new NotFoundHttpException();
+
+        throw new NotFoundHttpException();
     }
 }
