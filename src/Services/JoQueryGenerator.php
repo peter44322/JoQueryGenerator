@@ -1,8 +1,8 @@
 <?php
 
 namespace Peterzaccha\JoQueryGenerator\Services;
+
 use Illuminate\Http\Request;
-use Peterzaccha\JoQueryGenerator\Interfaces\DataTable;
 
 class JoQueryGenerator
 {
@@ -10,13 +10,13 @@ class JoQueryGenerator
     private $selectors = [];
     private $tables = [];
     private $defaultSelectors = [];
-    private $query ;
+    private $query;
     private $tableDotColumn;
 
     public function __construct(Request $request, $dataTable)
     {
         $this->tableDotColumn = $request->viscolumns;
-        if(!$request->viscolumns){
+        if (!$request->viscolumns) {
             throw new \InvalidArgumentException('viscolumns Could not be null');
         }
         $this->defaultSelectors = $dataTable::defaultSelection();
@@ -41,10 +41,10 @@ class JoQueryGenerator
     {
         //array will be like [ 'tableName'=>['col1','col2'] ]
         foreach ($this->tableDotColumn as $item) {
-            $this->tables[explode(".", $item)[0]] = [];
+            $this->tables[explode('.', $item)[0]] = [];
             array_push(
-                $this->tables[explode(".", $item)[0]],
-                @explode(".", $item)[1]
+                $this->tables[explode('.', $item)[0]],
+                @explode('.', $item)[1]
             );
         }
     }
@@ -54,17 +54,20 @@ class JoQueryGenerator
         if (isset($this->tables[$tableName])) {
             return $this->tables[$tableName];
         }
+
         return [];
     }
 
     private function cleanArray($array)
     {
         $a = function ($obj) {
-            static $idlist = array();
-            if (in_array($obj->table, $idlist))
+            static $idlist = [];
+            if (in_array($obj->table, $idlist)) {
                 return false;
+            }
 
             $idlist[] = $obj->table;
+
             return true;
         };
 
@@ -91,10 +94,12 @@ class JoQueryGenerator
         $allJoins = [];
         foreach ($array as $column) {
             if ($this->getSelector($column)) {
-                foreach ($this->getJoin($column) as $join)
+                foreach ($this->getJoin($column) as $join) {
                     array_push($allJoins, $join);
+                }
             }
         }
+
         return $this->cleanArray($allJoins);
     }
 
@@ -104,10 +109,12 @@ class JoQueryGenerator
         $allSelectors = $this->defaultSelectors;
         foreach ($array as $column) {
             if ($this->getSelector($column)) {
-                foreach ($this->getSelector($column) as $join)
+                foreach ($this->getSelector($column) as $join) {
                     array_push($allSelectors, $join);
+                }
             }
         }
+
         return array_unique($allSelectors);
     }
 
@@ -116,12 +123,12 @@ class JoQueryGenerator
         foreach ($this->getJoins() as $object) {
             $this->query->leftJoin($object->table, function ($q) use ($object) {
                 for ($i = 0; $i < count($object->first_col); $i++) {
-                    $fun = 'on';//$i === 0 ? 'on' : 'orOn';
+                    $fun = 'on'; //$i === 0 ? 'on' : 'orOn';
                     $q->$fun($object->first_col[$i], $object->operator, $object->second_col[$i]);
                 }
             });
         }
+
         return $this->query->select($this->getSelectors());
     }
-
 }
