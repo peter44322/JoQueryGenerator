@@ -36,7 +36,7 @@ class DataTable
         return url('jo-query-generator-route/'.end($nameArray));
     }
 
-    public  function tableTitle($classes =""){
+    protected  function tableTitle($classes =""){
         $html = '';
         $titles = $this->titles();
         foreach ($this->defaultSelection() as $selection){
