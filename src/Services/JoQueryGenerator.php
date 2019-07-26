@@ -14,16 +14,16 @@ class JoQueryGenerator
     private $tableDotColumn;
     private $dataTable ;
 
-    public function __construct(Request $request, $dataTable)
+    public function __construct(Request $request,DataTable $dataTable)
     {
         $this->tableDotColumn = $request->viscolumns;
         if(!$request->viscolumns){
             throw new \InvalidArgumentException('viscolumns Could not be null');
         }
-        $this->defaultSelectors = $dataTable::defaultSelection();
-        $this->joins = $dataTable::joins();
-        $this->selectors = $dataTable::selections();
-        $this->query = $dataTable::query();
+        $this->defaultSelectors = $dataTable->defaultSelection();
+        $this->joins = $dataTable->joins();
+        $this->selectors = $dataTable->selections();
+        $this->query = $dataTable->query();
 
         $this->dataTable = $dataTable;
 
@@ -127,7 +127,7 @@ class JoQueryGenerator
 
         $dataTabel = $this->dataTable;
 
-        return $dataTabel::conditions($this->query)->select($this->getSelectors());
+        return $dataTabel->conditions($this->query)->select($this->getSelectors());
     }
 
 }
