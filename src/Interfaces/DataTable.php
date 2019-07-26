@@ -26,6 +26,10 @@ class DataTable
     public static function query(){
         return null;
     }
+
+    public static function conditions($query){
+        return $query;
+    }
 //    public function slug(){
 //        return __CLASS__;
 //    }

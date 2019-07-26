@@ -12,6 +12,7 @@ class JoQueryGenerator
     private $defaultSelectors = [];
     private $query ;
     private $tableDotColumn;
+    private $dataTable ;
 
     public function __construct(Request $request, $dataTable)
     {
@@ -23,6 +24,8 @@ class JoQueryGenerator
         $this->joins = $dataTable::joins();
         $this->selectors = $dataTable::selections();
         $this->query = $dataTable::query();
+
+        $this->dataTable = $dataTable;
 
         $this->setTables();
     }
@@ -121,7 +124,10 @@ class JoQueryGenerator
                 }
             });
         }
-        return $this->query->select($this->getSelectors());
+
+        $dataTabel = $this->dataTable;
+
+        return $dataTabel::conditions($this->query)->select($this->getSelectors());
     }
 
 }
