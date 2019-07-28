@@ -41,7 +41,7 @@ class DataTable
 
     public static function setParameters(array $params){
         foreach ($params as $param=>$val){
-            self::$$param = $val;
+            static::$$param = $val;
         }
     }
 

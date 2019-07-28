@@ -25,7 +25,7 @@ class Router extends Controller
         {
             $obj = new $class;
             if ($params){
-                $array = json_decode($params);
+                $array = json_decode($params,true);
                 $obj::setParameters($array);
             }
 
