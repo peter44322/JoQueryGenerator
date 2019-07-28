@@ -17,13 +17,18 @@ use Yajra\DataTables\DataTables;
 class Router extends Controller
 {
 
-    public function call(Request $request, $slug){
+    public function call(Request $request, $slug,$params=null){
 
         $class = 'App\DataTables\\'.$slug;
 
         if (class_exists($class))
         {
             $obj = new $class;
+            if ($params){
+                $array = json_decode($params);
+                $obj::setParameters($array);
+            }
+
             $qg = new JoQueryGenerator($request,$obj);
             return $obj->render($qg)->make();
         }

@@ -4,6 +4,7 @@
 namespace Peterzaccha\JoQueryGenerator\Interfaces;
 
 
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Schema;
 use Peterzaccha\JoQueryGenerator\Services\JoQueryGenerator;
 use Yajra\DataTables\DataTables;
@@ -34,9 +35,19 @@ class DataTable
 //        return __CLASS__;
 //    }
 
+    public static function parameters(){
+        return collect([]);
+    }
+
+    public static function setParameters(array $params){
+        foreach ($params as $param=>$val){
+            self::$$param = $val;
+        }
+    }
+
     public static function url(){
         $nameArray = explode('\\',static::class);
-        return url('jo-query-generator-route/'.end($nameArray));
+        return url('jo-query-generator-route/'.end($nameArray).'/'.static::parameters()->toJson());
     }
 
     public static function tableTitle($classes =""){
