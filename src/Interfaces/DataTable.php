@@ -56,12 +56,15 @@ class DataTable
         foreach (static::defaultSelection() as $selection){
             $table=explode('.',$selection)[0];
             $star=explode('.',$selection)[1];
+            $title = isset($titles[$selection]) ? $titles[$selection] : $selection;
             if (trim($star) == '*'){
                 foreach (Schema::getColumnListing($table) as $column){
                     $name = $table.'.'.$column;
                     $title = isset($titles[$column]) ? $titles[$column] : $column;
-                    $html .= "<th data-data='${column}' data-name='${name}' data-visible='0' class='${classes}'>${title}</th>";
+                    $html .= "<th data-data='${column}' data-name='${name}' data-visible='1' class='${classes}'>${title}</th>";
                 }
+            }else{
+                $html .= "<th data-data='${star}' data-name='${selection}' data-visible='1' class='${classes}'>${title}</th>";
             }
 
         }
