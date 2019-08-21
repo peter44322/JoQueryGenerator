@@ -24,7 +24,7 @@ class DataTable
     public static function titles(){
         return [];
     }
-    public static function query(){
+    public static function query($request){
         return null;
     }
 
