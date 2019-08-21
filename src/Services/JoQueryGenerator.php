@@ -23,7 +23,7 @@ class JoQueryGenerator
         $this->defaultSelectors = $dataTable::defaultSelection();
         $this->joins = $dataTable::joins();
         $this->selectors = $dataTable::selections();
-        $this->query = $dataTable::query();
+        $this->query = $dataTable::query($request);
 
         $this->dataTable = $dataTable;
 
