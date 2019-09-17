@@ -22,6 +22,9 @@ class JoQueryGeneratorServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        $this->publishes([
+            __DIR__.'/../config/dy-form.php' => config_path('dy-form.php'),
+        ], 'config');
         $this->loadRoutesFrom(__DIR__.'/routes.php');
         $this->loadMigrationsFrom(__DIR__ . '/../database/migrations/');
     }
