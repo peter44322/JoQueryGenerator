@@ -2,6 +2,7 @@
 
 namespace Peterzaccha\JoQueryGenerator\Interfaces;
 
+use Illuminate\Database\Query\Expression;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Schema;
 use Peterzaccha\JoQueryGenerator\Services\JoQueryGenerator;
@@ -73,6 +74,9 @@ class DataTable
 
         foreach (static::selections() as $key=>$value) {
             foreach ($value as $selection) {
+                if ($selection instanceof Expression) {
+                    $selection = preg_replace('/^[A-Z_]+\(([a-z_\.]+)\)/i', '${1}', $selection->getValue());
+                }
                 $name = explode(' as ', $selection)[0];
                 $data = explode(' as ', $selection)[1];
                 $name = trim($name);
