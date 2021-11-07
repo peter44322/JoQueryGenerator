@@ -75,7 +75,7 @@ class DataTable
         foreach (static::selections() as $key=>$value) {
             foreach ($value as $selection) {
                 if ($selection instanceof Expression) {
-                    $selection = preg_replace('/^[A-Z_]+\(([a-z_\.]+)\)/i', '${1}', $selection->getValue());
+                    $selection = preg_replace('/^[A-Z_]+\([A-Z]* ?([a-z_\.]+)\)/i', '${1}', $selection->getValue());
                 }
                 $name = explode(' as ', $selection)[0];
                 $data = explode(' as ', $selection)[1];
